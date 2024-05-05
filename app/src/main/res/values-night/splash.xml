@@ -2,8 +2,8 @@
 <resources>
     <style name="Kiels.Starting.Theme" parent="Theme.SplashScreen">
 
-        <item name="windowSplashScreenBackground">#000000</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="windowSplashScreenBackground">#102028</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/kiels_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.Kiels</item>
 
     </style>
