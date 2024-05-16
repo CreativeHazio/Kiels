@@ -63,9 +63,7 @@ fun HomeScreenArticleCardList(
 
     if (handlePagingResult) {
 
-        LazyColumn(
-
-        ) {
+        LazyColumn {
             items(articles.itemCount) {
                 articles[it]?.let { article ->
                     ArticleCard(article = article) { isStarred->
@@ -87,7 +85,7 @@ fun StarredScreenArticleCardList(
 
     LazyColumn {
         items(articles.size) {
-            ArticleCard(article = articles[it]) { isUnstarred->
+            ArticleCard(article = articles[it]) { isUnstarred ->
                 if (isUnstarred) starredViewModel.deleteStarredArticle(articles[it])
             }
         }
@@ -229,7 +227,8 @@ fun handlePagingResults(articles: LazyPagingItems<Article>) : Boolean {
                 verticalArrangement = Arrangement.Center
             ) {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(40.dp),
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
             false
@@ -242,7 +241,6 @@ fun handlePagingResults(articles: LazyPagingItems<Article>) : Boolean {
         }
 
         else -> {
-            println("LoadState is true")
             true
         }
     }

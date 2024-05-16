@@ -11,6 +11,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,11 +27,11 @@ class HomeViewModel @Inject constructor(
 
     val articlesHeadline = getArticlesUseCase.getArticlesHeadline(
         ""
-    ).cachedIn(viewModelScope)
+    ).distinctUntilChanged().cachedIn(viewModelScope)
 
     val articles = getArticlesUseCase.getLatestArticles(
         "technology"
-    ).cachedIn(viewModelScope)
+    ).distinctUntilChanged().cachedIn(viewModelScope)
 
     fun starArticle(isStarred : Boolean, article: Article) {
         // TODO: If isStarred then delete article from room, else add article to room
