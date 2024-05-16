@@ -30,11 +30,11 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesStarredArticlesUseCase(articleDAO: ArticleDAO) : StarredArticlesUseCase {
+    fun providesStarredArticlesUseCase(articleRepository: ArticleRepository) : StarredArticlesUseCase {
         return StarredArticlesUseCase(
-            saveStarredArticle = SaveStarredArticle(articleDAO),
-            deleteStarredArticle = DeleteStarredArticle(articleDAO),
-            getStarredArticles = GetStarredArticles(articleDAO)
+            saveStarredArticle = SaveStarredArticle(articleRepository),
+            deleteStarredArticle = DeleteStarredArticle(articleRepository),
+            getStarredArticles = GetStarredArticles(articleRepository)
         )
     }
 }

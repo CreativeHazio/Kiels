@@ -3,6 +3,7 @@ package com.timeless.kiels.data.local
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticleDAO {
@@ -14,6 +15,6 @@ interface ArticleDAO {
     fun deleteArticle(articleTitle : String)
 
     @Query("SELECT * FROM articles_table")
-    fun getArticles() : List<ArticleEntity>
+    fun getArticles() : Flow<List<ArticleEntity>>
 
 }

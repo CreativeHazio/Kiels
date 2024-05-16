@@ -1,6 +1,7 @@
 package com.timeless.kiels.di
 
 import com.timeless.kiels.data.api.ArticlesAPI
+import com.timeless.kiels.data.local.ArticleDAO
 import com.timeless.kiels.data.repository.ArticleRepositoryImpl
 import com.timeless.kiels.domain.repository.ArticleRepository
 import dagger.Module
@@ -22,8 +23,9 @@ object APIModule {
     @Provides
     @Singleton
     fun providesArticleRepository(
-        articlesAPI: ArticlesAPI
+        articlesAPI: ArticlesAPI,
+        articlesDAO: ArticleDAO
     ) : ArticleRepository {
-        return ArticleRepositoryImpl(articlesAPI)
+        return ArticleRepositoryImpl(articlesAPI,  articlesDAO)
     }
 }

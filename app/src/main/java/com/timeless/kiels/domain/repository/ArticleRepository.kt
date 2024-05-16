@@ -9,4 +9,10 @@ interface ArticleRepository {
     fun getLatestArticlesPagingData(keyword: String): Flow<PagingData<Article>>
 
     fun getArticlesHeadlinePagingData(keyword: String): Flow<PagingData<Article>>
+
+    fun saveArticleToRoom(article: Article)
+
+    fun deleteArticleFromRoom(articleTitle : String)
+
+    suspend fun getArticlesFromRoom() : Flow<List<Article>>
 }

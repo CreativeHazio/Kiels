@@ -7,6 +7,8 @@ import com.timeless.kiels.data.local.SourceEntity
 import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.model.ArticlesBody
 import com.timeless.kiels.domain.model.Source
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class ArticlesMapper {
 
@@ -38,18 +40,20 @@ class ArticlesMapper {
             )
         }
 
-        fun fromArticleEntityListToArticleList(articleEntity : List<ArticleEntity>) : List<Article> {
-            return articleEntity.map {
-                Article(
-                    it.author,
-                    it.content,
-                    it.description,
-                    it.publishedAt,
-                    fromSourceEntityToSource(it.source),
-                    it.title,
-                    it.url,
-                    it.urlToImage
-                )
+        fun fromArticleEntityFlowListToArticleFlowList(articleEntityFlow : Flow<List<ArticleEntity>>) : Flow<List<Article>> {
+            return articleEntityFlow.map {
+                it.map {
+                    Article(
+                        it.author,
+                        it.content,
+                        it.description,
+                        it.publishedAt,
+                        fromSourceEntityToSource(it.source),
+                        it.title,
+                        it.url,
+                        it.urlToImage
+                    )
+                }
             }
 
         }

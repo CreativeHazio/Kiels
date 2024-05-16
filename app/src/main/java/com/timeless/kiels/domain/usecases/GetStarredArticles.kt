@@ -3,15 +3,15 @@ package com.timeless.kiels.domain.usecases
 import com.timeless.kiels.data.local.ArticleDAO
 import com.timeless.kiels.domain.mapper.ArticlesMapper
 import com.timeless.kiels.domain.model.Article
+import com.timeless.kiels.domain.repository.ArticleRepository
+import kotlinx.coroutines.flow.Flow
 
 class GetStarredArticles(
-    private val articleDAO: ArticleDAO
+    private val articleRepository: ArticleRepository
 ) {
 
-    operator fun invoke() : List<Article> {
-        return ArticlesMapper.fromArticleEntityListToArticleList(
-            articleDAO.getArticles()
-        )
+    suspend operator fun invoke() : Flow<List<Article>> {
+        return articleRepository.getArticlesFromRoom()
     }
 
 }
