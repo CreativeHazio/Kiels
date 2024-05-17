@@ -1,12 +1,16 @@
 package com.timeless.kiels.presentation.shared
 
+import android.view.KeyEvent
+import android.view.MotionEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -142,7 +146,8 @@ fun ArticleCard(
             }
         ) {
             Column(
-                modifier = Modifier.padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 20.dp)
+                modifier = Modifier
+                    .padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 20.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -191,15 +196,23 @@ fun ArticleCard(
                 if (expandedState) {
                     Spacer(modifier = Modifier.size(10.dp))
                     AndroidView(
-                        modifier = Modifier.fillMaxSize(),
                         factory = {context ->
-                        WebView(context).apply {
-                            webViewClient = WebViewClient()
-                            loadUrl(article.url ?: "")
+                            WebView(context).apply {
+                                webViewClient = WebViewClient()
+                                setOnClickListener { expandedState = false }
+                                setOnTouchListener { v, event ->
+                                    if (event.action == MotionEvent.ACTION_UP) {
+                                        v.performClick()
+                                    }
+                                    false
+                                }
+                            }
+                        },
+                        update = {
+                            it.loadUrl(article.url ?: "")
                         }
-                    }, update = { webView ->
-                        webView.loadUrl(article.url ?: "")
-                    })
+                    )
+
                 }
             }
         }
@@ -228,6 +241,20 @@ fun handlePagingResults(articles: LazyPagingItems<Article>) : Boolean {
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(40.dp),
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
+            false
+        }
+
+        loadState.append is LoadState.Loading -> {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Bottom
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(20.dp),
                     color = MaterialTheme.colorScheme.secondary
                 )
             }

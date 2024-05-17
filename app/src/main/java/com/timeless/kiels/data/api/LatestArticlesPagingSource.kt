@@ -24,13 +24,13 @@ class LatestArticlesPagingSource @Inject constructor(
                 keyword = keyword, pageNumber = pageIndex
             )
 
-            val articlesBody = ArticlesMapper.fromArticlesResponseToArticlesBody(
+            val articles = ArticlesMapper.fromArticlesResponseToArticlesBody(
                 articlesResponse.body()!!
-            )
+            ).articles.distinctBy { it.title }.filterNot { it.title == "[Removed]" }
             LoadResult.Page(
-                data = articlesBody.articles,
+                data = articles,
                 prevKey = null,
-                nextKey = if (articlesBody.articles.isEmpty()) null else pageIndex + 1
+                nextKey = if (articles.isEmpty()) null else pageIndex + 1
             )
         } catch (e : Exception) {
             LoadResult.Error(e)

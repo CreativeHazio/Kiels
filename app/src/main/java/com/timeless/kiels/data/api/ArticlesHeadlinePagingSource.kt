@@ -24,13 +24,13 @@ class ArticlesHeadlinePagingSource @Inject constructor(
                 keyword, currentPage
             )
 
-            val articlesBody = ArticlesMapper.fromArticlesResponseToArticlesBody(
+            val articles = ArticlesMapper.fromArticlesResponseToArticlesBody(
                 articlesResponse.body()!!
-            )
+            ).articles.distinctBy { it.title }.filterNot { it.title == "[Removed]" }
             LoadResult.Page(
-                data = articlesBody.articles,
+                data = articles,
                 prevKey = null,
-                nextKey = if (articlesBody.articles.isNotEmpty()) currentPage + 1 else null
+                nextKey = if (articles.isNotEmpty()) currentPage + 1 else null
             )
 
         } catch (e : Exception) {
