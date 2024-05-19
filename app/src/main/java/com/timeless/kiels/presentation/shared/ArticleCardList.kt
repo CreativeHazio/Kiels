@@ -2,6 +2,7 @@ package com.timeless.kiels.presentation.shared
 
 import android.view.KeyEvent
 import android.view.MotionEvent
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.animation.animateContentSize
@@ -52,17 +53,17 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.timeless.kiels.R
 import com.timeless.kiels.domain.model.Article
-import com.timeless.kiels.presentation.home.HomeViewModel
 import com.timeless.kiels.presentation.starred.StarredViewModel
 import com.timeless.kiels.ui.theme.DividerGray
 import com.timeless.kiels.ui.theme.Gray
+import kotlinx.coroutines.flow.asFlow
 
 @Composable
 fun HomeScreenArticleCardList(
-    articles : LazyPagingItems<Article>
+    articles : LazyPagingItems<Article>,
+    starArticle: (Boolean, Article) -> Unit
 ) {
 
-    val viewModel : HomeViewModel = hiltViewModel()
     val handlePagingResult = handlePagingResults(articles = articles)
 
     if (handlePagingResult) {
@@ -71,7 +72,7 @@ fun HomeScreenArticleCardList(
             items(articles.itemCount) {
                 articles[it]?.let { article ->
                     ArticleCard(article = article) { isStarred->
-                        viewModel.starArticle(isStarred, article)
+                        starArticle(isStarred, article)
                     }
                 }
             }

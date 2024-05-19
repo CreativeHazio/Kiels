@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -25,9 +26,9 @@ class HomeViewModel @Inject constructor(
     private val _keyword = MutableStateFlow("")
     val keyword = _keyword.asStateFlow()
 
-    val articlesHeadline = getArticlesUseCase.getArticlesHeadline(
-        ""
-    ).distinctUntilChanged().cachedIn(viewModelScope)
+//    val articlesHeadline = getArticlesUseCase.getArticlesHeadline(
+//        ""
+//    ).distinctUntilChanged().cachedIn(viewModelScope)
 
     val articles = getArticlesUseCase.getLatestArticles(
         "technology"

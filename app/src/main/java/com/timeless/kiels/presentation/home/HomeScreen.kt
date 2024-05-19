@@ -35,7 +35,9 @@ fun HomeScreenRoot(
     // TODO: Also get user detail from viewmodel
     val articles : LazyPagingItems<Article> = viewModel.articles.collectAsLazyPagingItems()
 
-    HomeScreen(articles = articles)
+    HomeScreen(articles = articles) { isStarred, article ->
+        viewModel.starArticle(isStarred, article)
+    }
 
 }
 
@@ -43,7 +45,8 @@ fun HomeScreenRoot(
 fun HomeScreen(
 //    profileImageUrl : String,
 //    articlesHeadline : List<Article>,
-    articles : LazyPagingItems<Article>
+    articles : LazyPagingItems<Article>,
+    starArticle: (Boolean, Article) -> Unit
 ) {
 
     Column(
@@ -51,7 +54,7 @@ fun HomeScreen(
     ) {
         ProfileSection()
         Spacer(modifier = Modifier.height(20.dp))
-        NewsSection(articles = articles)
+        NewsSection(articles = articles, starArticle = starArticle)
     }
 
 }
@@ -91,7 +94,9 @@ fun ProfileSection(
         Divider(
             thickness = 6.dp,
             color = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier.width(40.dp).padding(top = 5.dp)
+            modifier = Modifier
+                .width(40.dp)
+                .padding(top = 5.dp)
         )
     }
 
@@ -99,9 +104,10 @@ fun ProfileSection(
 
 @Composable
 fun NewsSection(
-    articles: LazyPagingItems<Article>
+    articles: LazyPagingItems<Article>,
+    starArticle: (Boolean, Article) -> Unit
 ) {
 
-    HomeScreenArticleCardList(articles = articles)
+    HomeScreenArticleCardList(articles = articles, starArticle = starArticle)
 
 }
