@@ -1,7 +1,7 @@
 package com.timeless.kiels.di
 
-import com.timeless.kiels.data.api.ArticlesAPI
-import com.timeless.kiels.data.local.ArticleDAO
+import com.timeless.kiels.data.remote.ArticlesAPI
+import com.timeless.kiels.data.local.article.ArticleDAO
 import com.timeless.kiels.data.repository.ArticleRepositoryImpl
 import com.timeless.kiels.domain.repository.ArticleRepository
 import dagger.Module

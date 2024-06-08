@@ -1,4 +1,4 @@
-package com.timeless.kiels.data.api
+package com.timeless.kiels.data.remote
 
 import com.timeless.kiels.BuildConfig
 import com.timeless.kiels.util.Constants.ARTICLES_API_BASE_URL

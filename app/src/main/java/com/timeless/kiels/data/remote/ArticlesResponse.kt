@@ -1,4 +1,4 @@
-package com.timeless.kiels.data.api
+package com.timeless.kiels.data.remote
 
 import com.google.gson.annotations.SerializedName
 

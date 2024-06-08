@@ -2,8 +2,8 @@ package com.timeless.kiels.di
 
 import android.content.Context
 import androidx.room.Room
-import com.timeless.kiels.data.local.ArticleDAO
-import com.timeless.kiels.data.local.ArticleDatabase
+import com.timeless.kiels.data.local.article.ArticleDAO
+import com.timeless.kiels.data.local.article.ArticleDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

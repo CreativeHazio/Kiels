@@ -1,8 +1,8 @@
-package com.timeless.kiels.data.api
+package com.timeless.kiels.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.timeless.kiels.domain.mapper.ArticlesMapper
+import com.timeless.kiels.data.mapper.ArticlesMapper
 import com.timeless.kiels.domain.model.Article
 import javax.inject.Inject
 

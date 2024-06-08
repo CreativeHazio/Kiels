@@ -1,9 +1,9 @@
-package com.timeless.kiels.domain.mapper
+package com.timeless.kiels.data.mapper
 
-import com.timeless.kiels.data.api.ArticlesResponse
-import com.timeless.kiels.data.api.SourceDto
-import com.timeless.kiels.data.local.ArticleEntity
-import com.timeless.kiels.data.local.SourceEntity
+import com.timeless.kiels.data.remote.ArticlesResponse
+import com.timeless.kiels.data.remote.SourceDto
+import com.timeless.kiels.data.local.article.ArticleEntity
+import com.timeless.kiels.data.local.article.SourceEntity
 import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.model.ArticlesBody
 import com.timeless.kiels.domain.model.Source

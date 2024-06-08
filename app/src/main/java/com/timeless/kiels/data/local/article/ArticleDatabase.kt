@@ -1,4 +1,4 @@
-package com.timeless.kiels.data.local
+package com.timeless.kiels.data.local.article
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

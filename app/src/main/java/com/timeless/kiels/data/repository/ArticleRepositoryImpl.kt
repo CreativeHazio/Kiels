@@ -3,16 +3,15 @@ package com.timeless.kiels.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.timeless.kiels.data.api.ArticlesAPI
-import com.timeless.kiels.data.api.ArticlesHeadlinePagingSource
-import com.timeless.kiels.data.api.LatestArticlesPagingSource
-import com.timeless.kiels.data.local.ArticleDAO
-import com.timeless.kiels.domain.mapper.ArticlesMapper
+import com.timeless.kiels.data.remote.ArticlesAPI
+import com.timeless.kiels.data.remote.ArticlesHeadlinePagingSource
+import com.timeless.kiels.data.remote.LatestArticlesPagingSource
+import com.timeless.kiels.data.local.article.ArticleDAO
+import com.timeless.kiels.data.mapper.ArticlesMapper
 import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.repository.ArticleRepository
 import com.timeless.kiels.util.Constants
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ArticleRepositoryImpl @Inject constructor(

@@ -1,4 +1,4 @@
-package com.timeless.kiels.data.local
+package com.timeless.kiels.data.local.article
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

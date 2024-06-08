@@ -2,7 +2,7 @@ package com.timeless.kiels.data.local.typeConverter
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.timeless.kiels.data.local.SourceEntity
+import com.timeless.kiels.data.local.article.SourceEntity
 
 class ArticleTypeConverter {
 

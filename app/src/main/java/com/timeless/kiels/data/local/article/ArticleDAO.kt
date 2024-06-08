@@ -1,4 +1,4 @@
-package com.timeless.kiels.data.local
+package com.timeless.kiels.data.local.article
 
 import androidx.room.Dao
 import androidx.room.Query
