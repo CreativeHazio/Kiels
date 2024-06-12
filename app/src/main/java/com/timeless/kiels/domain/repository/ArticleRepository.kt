@@ -1,18 +1,17 @@
 package com.timeless.kiels.domain.repository
 
 import androidx.paging.PagingData
+import com.timeless.kiels.data.local.article.ArticleEntity
 import com.timeless.kiels.domain.model.Article
 import kotlinx.coroutines.flow.Flow
 
 interface ArticleRepository {
 
-    fun getLatestArticlesPagingData(keyword: String): Flow<PagingData<Article>>
+    fun getLatestArticlesPagingData(searchQuery: String): Flow<PagingData<Article>>
 
-    fun getArticlesHeadlinePagingData(keyword: String): Flow<PagingData<Article>>
+    suspend fun saveArticleToRoom(article: Article)
 
-    fun saveArticleToRoom(article: Article)
-
-    fun deleteArticleFromRoom(articleTitle : String)
+    suspend fun deleteArticleFromRoom(article: Article)
 
     suspend fun getArticlesFromRoom() : Flow<List<Article>>
 }

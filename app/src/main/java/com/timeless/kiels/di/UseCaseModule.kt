@@ -2,7 +2,6 @@ package com.timeless.kiels.di
 
 import com.timeless.kiels.domain.repository.ArticleRepository
 import com.timeless.kiels.domain.usecases.DeleteStarredArticle
-import com.timeless.kiels.domain.usecases.GetArticlesHeadline
 import com.timeless.kiels.domain.usecases.GetArticlesUseCase
 import com.timeless.kiels.domain.usecases.GetLatestArticles
 import com.timeless.kiels.domain.usecases.GetStarredArticles
@@ -22,7 +21,6 @@ object UseCaseModule {
     @Singleton
     fun providesGetArticlesUseCase(articleRepository : ArticleRepository) : GetArticlesUseCase {
         return GetArticlesUseCase(
-            getArticlesHeadline = GetArticlesHeadline(articleRepository),
             getLatestArticles = GetLatestArticles(articleRepository)
         )
     }

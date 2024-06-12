@@ -4,7 +4,6 @@ import com.timeless.kiels.BuildConfig
 import com.timeless.kiels.util.Constants.ARTICLES_API_BASE_URL
 import com.timeless.kiels.util.Constants.ARTICLES_DOMAINS
 import com.timeless.kiels.util.Constants.ARTICLES_PAGE_SIZE
-import com.timeless.kiels.util.Constants.ARTICLES_SOURCES
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -16,22 +15,10 @@ import java.util.concurrent.TimeUnit
 
 interface ArticlesAPI {
 
-    @GET("top-headlines")
-    suspend fun getArticleHeadlinesFromNewsApi(
-        @Query("q")
-        keyword: String = "technology",
-        @Query("page")
-        pageNumber : Int,
-        @Query("sources")
-        sources : String = ARTICLES_SOURCES,
-        @Query("apiKey")
-        apiKey : String = BuildConfig.NEWS_API_KEY
-    ) : Response<ArticlesResponse>
-
     @GET("everything")
     suspend fun getLatestArticlesFromNewsApi(
         @Query("q")
-        keyword: String,
+        searchQuery: String,
         @Query("domains")
         domains : String = ARTICLES_DOMAINS,
         @Query("pageSize")

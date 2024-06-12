@@ -28,10 +28,12 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -68,12 +71,20 @@ fun HomeScreenArticleCardList(
 
     if (handlePagingResult) {
 
-        LazyColumn {
-            items(articles.itemCount) {
+        LazyColumn{
+            items(count = articles.itemCount) {
                 articles[it]?.let { article ->
                     ArticleCard(article = article) { isStarred->
                         starArticle(isStarred, article)
                     }
+                }
+            }
+            item {
+                if (articles.loadState.append is LoadState.Loading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = MaterialTheme.colorScheme.secondary
+                    )
                 }
             }
         }
@@ -181,7 +192,7 @@ fun ArticleCard(
                         }
                     ) {
                         Icon(
-                            painter = if (starredIconClicked) starredIcon else unStarredIcon,
+                            painter = if (starredIconClicked || article.isStarred) starredIcon else unStarredIcon,
                             modifier = Modifier.size(24.dp),
                             contentDescription = "Read later"
                         )
@@ -226,6 +237,7 @@ fun ArticleCard(
 fun handlePagingResults(articles: LazyPagingItems<Article>) : Boolean {
     val loadState = articles.loadState
 
+
     val error = when {
         loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
         loadState.append is LoadState.Error -> loadState.append as LoadState.Error
@@ -242,20 +254,6 @@ fun handlePagingResults(articles: LazyPagingItems<Article>) : Boolean {
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(40.dp),
-                    color = MaterialTheme.colorScheme.secondary
-                )
-            }
-            false
-        }
-
-        loadState.append is LoadState.Loading -> {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Bottom
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(20.dp),
                     color = MaterialTheme.colorScheme.secondary
                 )
             }

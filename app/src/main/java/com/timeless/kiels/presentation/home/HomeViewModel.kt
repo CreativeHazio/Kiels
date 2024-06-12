@@ -3,6 +3,7 @@ package com.timeless.kiels.presentation.home
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.usecases.GetArticlesUseCase
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,28 +21,42 @@ import javax.inject.Singleton
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    getArticlesUseCase: GetArticlesUseCase,
+    private val getArticlesUseCase: GetArticlesUseCase,
     private val starredArticlesUseCase: StarredArticlesUseCase
 ) : ViewModel() {
 
-    private val _keyword = MutableStateFlow("")
-    val keyword = _keyword.asStateFlow()
+    private val _articles = MutableStateFlow<PagingData<Article>>(PagingData.empty())
+    val articles = _articles.asStateFlow().cachedIn(viewModelScope)
 
-//    val articlesHeadline = getArticlesUseCase.getArticlesHeadline(
-//        ""
+    init {
+        getArticles()
+    }
+
+    private fun getArticles() {
+        viewModelScope.launch {
+            getArticlesUseCase.getLatestArticles(
+                "technology"
+            ).distinctUntilChanged().collectLatest {
+                _articles.value = it
+            }
+        }
+    }
+
+//    val articles = getArticlesUseCase.getLatestArticles(
+//        "technology"
 //    ).distinctUntilChanged().cachedIn(viewModelScope)
-
-    val articles = getArticlesUseCase.getLatestArticles(
-        "technology"
-    ).distinctUntilChanged().cachedIn(viewModelScope)
 
     fun starArticle(isStarred : Boolean, article: Article) {
         // TODO: If isStarred then delete article from room, else add article to room
         viewModelScope.launch(Dispatchers.IO) {
             if (!isStarred) {
-                starredArticlesUseCase.deleteStarredArticle(article)
+                starredArticlesUseCase.deleteStarredArticle(article.copy(
+                    isStarred = false
+                ))
             } else {
-                starredArticlesUseCase.saveStarredArticle(article)
+                starredArticlesUseCase.saveStarredArticle(article.copy(
+                    isStarred = true
+                ))
             }
         }
     }

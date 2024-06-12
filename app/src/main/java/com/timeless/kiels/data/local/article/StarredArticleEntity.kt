@@ -4,11 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "articles_table")
-data class ArticleEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    val id : Int?,
+@Entity(tableName = "starred_articles_table")
+data class StarredArticleEntity(
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo("id")
+    val id : Int,
     @ColumnInfo("title")
     val title : String,
     @ColumnInfo("author")
@@ -20,17 +20,17 @@ data class ArticleEntity(
     @ColumnInfo("publishedAt")
     val publishedAt : String,
     @ColumnInfo("source")
-    val source : SourceEntity,
+    val source : StarredSourceEntity,
     @ColumnInfo("url")
     val url : String,
     @ColumnInfo("urlToImage")
     val urlToImage : String,
-    @ColumnInfo(name = "isStarred", defaultValue = "false")
-    val isStarred : Boolean = false
+    @ColumnInfo(name = "isStarred")
+    val isStarred : Boolean
 )
 
-@Entity
-data class SourceEntity(
+@Entity(tableName = "starred_source_table")
+data class StarredSourceEntity(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo("id")
     val id : String,

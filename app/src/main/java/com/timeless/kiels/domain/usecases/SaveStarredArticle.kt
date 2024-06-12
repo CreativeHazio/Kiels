@@ -7,7 +7,7 @@ class SaveStarredArticle(
     private val articleRepository: ArticleRepository
 ) {
 
-    operator fun invoke(article: Article) {
+    suspend operator fun invoke(article: Article) {
         articleRepository.saveArticleToRoom(article)
     }
 

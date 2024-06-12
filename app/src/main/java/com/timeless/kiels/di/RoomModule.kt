@@ -22,7 +22,7 @@ object RoomModule {
             context,
             ArticleDatabase::class.java,
             "Article_Database"
-        ).fallbackToDestructiveMigration()
+        ).addMigrations(ArticleDatabase.MIGRATION_1_2, ArticleDatabase.MIGRATION_3_4).fallbackToDestructiveMigration()
             .build()
     }
 

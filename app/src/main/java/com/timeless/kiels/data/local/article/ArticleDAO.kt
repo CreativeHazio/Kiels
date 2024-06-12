@@ -1,6 +1,8 @@
 package com.timeless.kiels.data.local.article
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
@@ -9,12 +11,24 @@ import kotlinx.coroutines.flow.Flow
 interface ArticleDAO {
 
     @Upsert
-    fun saveArticle(articleEntity: ArticleEntity)
+    fun starArticle(starredArticleEntity: StarredArticleEntity) // starred article
 
-    @Query("DELETE FROM articles_table WHERE title = :articleTitle")
-    fun deleteArticle(articleTitle : String)
+    @Upsert
+    fun updateArticle(articleEntity: ArticleEntity)
+
+    @Upsert
+    fun saveAllArticles(articleEntityList : List<ArticleEntity>)
+
+    @Delete
+    fun deleteArticle(starredArticleEntity: StarredArticleEntity) // starred article
+
+    @Query("SELECT * FROM starred_articles_table")
+    fun getArticles() : Flow<List<StarredArticleEntity>> // starred article table
 
     @Query("SELECT * FROM articles_table")
-    fun getArticles() : Flow<List<ArticleEntity>>
+    fun pagingSource() : PagingSource<Int, ArticleEntity>
+
+    @Query("DELETE FROM articles_table")
+    fun clearAllArticles()
 
 }
