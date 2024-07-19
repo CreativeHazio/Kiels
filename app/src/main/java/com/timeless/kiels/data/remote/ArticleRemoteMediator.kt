@@ -39,7 +39,7 @@ class ArticleRemoteMediator(
             }
 
             val articlesResponse = articlesAPI.getLatestArticlesFromNewsApi(
-                searchQuery = searchQuery, pageNumber = loadKey
+                searchQuery = searchQuery, pageNumber = loadKey, pageSize = state.config.pageSize
             )
 
             val articles = ArticlesMapper.fromArticlesResponseToArticleBodyEntity(

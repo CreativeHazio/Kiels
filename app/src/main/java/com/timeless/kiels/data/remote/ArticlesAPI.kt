@@ -22,7 +22,7 @@ interface ArticlesAPI {
         @Query("domains")
         domains : String = ARTICLES_DOMAINS,
         @Query("pageSize")
-        pageSize : Int = ARTICLES_PAGE_SIZE,
+        pageSize : Int,
         @Query("page")
         pageNumber : Int,
         @Query("apiKey")
