@@ -1,4 +1,4 @@
-package com.timeless.kiels.util
+package com.timeless.kiels.core.util
 
 object Constants {
 

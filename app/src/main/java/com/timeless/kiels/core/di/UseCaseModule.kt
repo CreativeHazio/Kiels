@@ -1,4 +1,4 @@
-package com.timeless.kiels.di
+package com.timeless.kiels.core.di
 
 import com.timeless.kiels.domain.repository.ArticleRepository
 import com.timeless.kiels.domain.usecases.DeleteStarredArticle

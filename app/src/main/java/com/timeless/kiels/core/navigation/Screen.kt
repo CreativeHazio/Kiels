@@ -1,4 +1,4 @@
-package com.timeless.kiels.presentation.navigation
+package com.timeless.kiels.core.navigation
 
 sealed class Screen (val route : String) {
 

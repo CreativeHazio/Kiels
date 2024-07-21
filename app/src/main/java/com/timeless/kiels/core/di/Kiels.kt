@@ -1,4 +1,4 @@
-package com.timeless.kiels.di
+package com.timeless.kiels.core.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -11,7 +11,7 @@ import com.timeless.kiels.data.mapper.ArticlesMapper
 import com.timeless.kiels.data.remote.ArticleRemoteMediator
 import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.repository.ArticleRepository
-import com.timeless.kiels.util.Constants
+import com.timeless.kiels.core.util.Constants
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

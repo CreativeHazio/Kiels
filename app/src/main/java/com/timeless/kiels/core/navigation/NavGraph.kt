@@ -1,4 +1,4 @@
-package com.timeless.kiels.presentation.navigation
+package com.timeless.kiels.core.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel

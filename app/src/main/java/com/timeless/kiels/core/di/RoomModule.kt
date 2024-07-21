@@ -1,4 +1,4 @@
-package com.timeless.kiels.di
+package com.timeless.kiels.core.di
 
 import android.content.Context
 import androidx.room.Room

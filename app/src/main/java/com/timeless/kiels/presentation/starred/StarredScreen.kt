@@ -10,12 +10,11 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.timeless.kiels.domain.model.Article
-import com.timeless.kiels.presentation.shared.StarredScreenArticleCardList
+import com.timeless.kiels.core.components.StarredScreenArticleCardList
 
 @Composable
 fun StarredScreenRoot(viewModel: StarredViewModel) {

@@ -1,4 +1,4 @@
-package com.timeless.kiels.di
+package com.timeless.kiels.core.di
 
 import com.timeless.kiels.data.remote.ArticlesAPI
 import com.timeless.kiels.data.local.article.ArticleDAO

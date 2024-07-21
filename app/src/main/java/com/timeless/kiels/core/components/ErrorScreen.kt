@@ -1,4 +1,4 @@
-package com.timeless.kiels.presentation.shared
+package com.timeless.kiels.core.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
