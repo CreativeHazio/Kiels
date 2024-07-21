@@ -30,7 +30,8 @@ fun StarredScreen(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .padding(bottom = 60.dp),
     ) {
 
         Column(

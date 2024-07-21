@@ -39,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -193,6 +194,11 @@ fun ArticleCard(
                     ) {
                         Icon(
                             painter = if (starredIconClicked || article.isStarred) starredIcon else unStarredIcon,
+                            tint = if (starredIconClicked || article.isStarred) {
+                                MaterialTheme.colorScheme.secondary
+                            } else {
+                                Color.Unspecified
+                            },
                             modifier = Modifier.size(24.dp),
                             contentDescription = "Read later"
                         )
