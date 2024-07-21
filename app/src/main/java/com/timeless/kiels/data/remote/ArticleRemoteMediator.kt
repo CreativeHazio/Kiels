@@ -8,8 +8,6 @@ import androidx.room.withTransaction
 import com.timeless.kiels.data.local.article.ArticleDatabase
 import com.timeless.kiels.data.local.article.ArticleEntity
 import com.timeless.kiels.data.mapper.ArticlesMapper
-import retrofit2.HttpException
-import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class ArticleRemoteMediator(

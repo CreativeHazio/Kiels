@@ -3,12 +3,12 @@ package com.timeless.kiels.data.mapper
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.timeless.kiels.data.local.article.ArticleBodyEntity
-import com.timeless.kiels.data.remote.ArticlesResponse
-import com.timeless.kiels.data.remote.SourceDto
 import com.timeless.kiels.data.local.article.ArticleEntity
 import com.timeless.kiels.data.local.article.SourceEntity
 import com.timeless.kiels.data.local.article.StarredArticleEntity
 import com.timeless.kiels.data.local.article.StarredSourceEntity
+import com.timeless.kiels.data.remote.ArticlesResponse
+import com.timeless.kiels.data.remote.SourceDto
 import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.model.Source
 import kotlinx.coroutines.flow.Flow

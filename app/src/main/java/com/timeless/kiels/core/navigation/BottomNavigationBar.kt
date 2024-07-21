@@ -26,7 +26,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.timeless.kiels.ui.theme.DividerGray
 import com.timeless.kiels.ui.theme.Gray
 import com.timeless.kiels.ui.theme.Transparent
-import com.timeless.kiels.ui.theme.Yellow
 
 @Composable
 fun BottomNavigationBar(

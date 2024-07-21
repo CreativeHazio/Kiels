@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.timeless.kiels.R
-import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.core.components.HomeScreenArticleCardList
+import com.timeless.kiels.domain.model.Article
 
 @Composable
 fun HomeScreenRoot(

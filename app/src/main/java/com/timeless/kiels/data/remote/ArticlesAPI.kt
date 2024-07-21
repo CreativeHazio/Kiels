@@ -3,7 +3,6 @@ package com.timeless.kiels.data.remote
 import com.timeless.kiels.BuildConfig
 import com.timeless.kiels.core.util.Constants.ARTICLES_API_BASE_URL
 import com.timeless.kiels.core.util.Constants.ARTICLES_DOMAINS
-import com.timeless.kiels.core.util.Constants.ARTICLES_PAGE_SIZE
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response

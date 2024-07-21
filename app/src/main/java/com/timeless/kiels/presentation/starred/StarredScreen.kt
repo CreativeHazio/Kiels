@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.core.components.StarredScreenArticleCardList
+import com.timeless.kiels.domain.model.Article
 
 @Composable
 fun StarredScreenRoot(viewModel: StarredViewModel) {
