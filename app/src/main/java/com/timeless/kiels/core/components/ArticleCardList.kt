@@ -1,5 +1,6 @@
 package com.timeless.kiels.core.components
 
+import android.graphics.Bitmap
 import android.view.MotionEvent
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -222,13 +223,6 @@ fun ArticleCard(
                             WebView(context).apply {
                                 clipToOutline = true
                                 webViewClient = WebViewClient()
-                                setOnClickListener { expandedState = false }
-                                setOnTouchListener { v, event ->
-                                    if (event.action == MotionEvent.ACTION_UP) {
-                                        v.performClick()
-                                    }
-                                    false
-                                }
                             }
                         },
                         update = {
