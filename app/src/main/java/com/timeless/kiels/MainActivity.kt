@@ -17,10 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.timeless.kiels.presentation.navigation.BottomNavItem
-import com.timeless.kiels.presentation.navigation.BottomNavigationBar
-import com.timeless.kiels.presentation.navigation.Navigation
-import com.timeless.kiels.presentation.navigation.Screen
+import com.timeless.kiels.core.navigation.BottomNavItem
+import com.timeless.kiels.core.navigation.BottomNavigationBar
+import com.timeless.kiels.core.navigation.Navigation
+import com.timeless.kiels.core.navigation.Screen
 import com.timeless.kiels.ui.theme.KielsTheme
 import dagger.hilt.android.AndroidEntryPoint
 

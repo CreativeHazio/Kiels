@@ -34,7 +34,7 @@ class StarredViewModel @Inject constructor(
 
     fun deleteStarredArticle(article : Article) {
         viewModelScope.launch(Dispatchers.IO) {
-            starredArticlesUseCase.deleteStarredArticle(article)
+            starredArticlesUseCase.deleteStarredArticle(article.copy(isStarred = false))
         }
     }
 

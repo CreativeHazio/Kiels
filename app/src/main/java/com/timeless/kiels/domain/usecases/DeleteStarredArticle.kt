@@ -7,8 +7,8 @@ class DeleteStarredArticle(
     private val articleRepository: ArticleRepository
 ) {
 
-    operator fun invoke(article: Article) {
-        articleRepository.deleteArticleFromRoom(article.title!!)
+    suspend operator fun invoke(article: Article) {
+        articleRepository.deleteArticleFromRoom(article)
     }
 
 }

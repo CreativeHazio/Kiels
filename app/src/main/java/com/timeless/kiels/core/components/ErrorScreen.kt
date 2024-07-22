@@ -1,4 +1,4 @@
-package com.timeless.kiels.presentation.shared
+package com.timeless.kiels.core.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,7 @@ fun ErrorScreen(
     
     when(error) {
         is UnknownHostException -> ShowErrorScreen(errorMessage = "No internet connection")
-        is SocketTimeoutException -> ShowErrorScreen(errorMessage = "Network timed out")
+        is SocketTimeoutException -> ShowErrorScreen(errorMessage = "Network timed out") // Show a snack bar to retry
     }
 
 }

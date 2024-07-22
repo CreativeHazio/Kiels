@@ -10,8 +10,8 @@ class GetLatestArticles(
 ) {
 
     operator fun invoke(
-        keyword: String
+        searchQuery: String
     ): Flow<PagingData<Article>> {
-        return articleRepository.getLatestArticlesPagingData(keyword)
+        return articleRepository.getLatestArticlesPagingData(searchQuery)
     }
 }

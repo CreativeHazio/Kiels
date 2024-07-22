@@ -1,4 +1,4 @@
-package com.timeless.kiels.di
+package com.timeless.kiels.core.di
 
 import android.content.Context
 import androidx.room.Room
@@ -22,7 +22,7 @@ object RoomModule {
             context,
             ArticleDatabase::class.java,
             "Article_Database"
-        ).fallbackToDestructiveMigration()
+        ).addMigrations(ArticleDatabase.MIGRATION_1_2, ArticleDatabase.MIGRATION_3_4).fallbackToDestructiveMigration()
             .build()
     }
 
