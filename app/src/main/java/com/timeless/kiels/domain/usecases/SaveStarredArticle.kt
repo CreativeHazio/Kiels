@@ -8,7 +8,7 @@ class SaveStarredArticle(
 ) {
 
     suspend operator fun invoke(article: Article) {
-        articleRepository.saveArticleToRoom(article)
+        articleRepository.saveStarredArticleToRoom(article)
     }
 
 }

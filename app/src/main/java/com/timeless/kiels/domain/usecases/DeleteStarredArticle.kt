@@ -8,7 +8,7 @@ class DeleteStarredArticle(
 ) {
 
     suspend operator fun invoke(article: Article) {
-        articleRepository.deleteArticleFromRoom(article)
+        articleRepository.deleteStarredArticleFromRoom(article)
     }
 
 }
