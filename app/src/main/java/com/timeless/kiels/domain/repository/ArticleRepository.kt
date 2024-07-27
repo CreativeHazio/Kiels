@@ -8,9 +8,9 @@ interface ArticleRepository {
 
     fun getLatestArticlesPagingData(searchQuery: String): Flow<PagingData<Article>>
 
-    suspend fun saveArticleToRoom(article: Article)
+    suspend fun saveStarredArticleToRoom(article: Article)
 
-    suspend fun deleteArticleFromRoom(article: Article)
+    suspend fun deleteStarredArticleFromRoom(article: Article)
 
-    suspend fun getArticlesFromRoom() : Flow<List<Article>>
+    suspend fun getStarredArticlesFromRoom() : Flow<List<Article>>
 }

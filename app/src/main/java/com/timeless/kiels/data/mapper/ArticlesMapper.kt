@@ -2,6 +2,7 @@ package com.timeless.kiels.data.mapper
 
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.timeless.kiels.core.util.Date
 import com.timeless.kiels.data.local.article.ArticleBodyEntity
 import com.timeless.kiels.data.local.article.ArticleEntity
 import com.timeless.kiels.data.local.article.SourceEntity
@@ -13,6 +14,8 @@ import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.model.Source
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class ArticlesMapper {
 
@@ -116,7 +119,8 @@ class ArticlesMapper {
                 fromSourceToStarredSourceEntity(article.source),
                 article.url!!,
                 article.urlToImage!!,
-                article.isStarred
+                article.isStarred,
+                Date.main()
             )
         }
 

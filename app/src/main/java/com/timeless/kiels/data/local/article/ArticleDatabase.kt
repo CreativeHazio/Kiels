@@ -10,10 +10,10 @@ import com.timeless.kiels.data.local.typeConverter.ArticleTypeConverter
 
 @Database(
     entities = [ArticleEntity::class, SourceEntity::class, StarredArticleEntity::class, StarredSourceEntity::class],
-    version = 4,
+    version = 6,
     exportSchema = true,
     autoMigrations = [
-        AutoMigration(from = 2, to = 3)
+        AutoMigration(from = 4, to = 5)
     ]
 )
 @TypeConverters(ArticleTypeConverter::class)
@@ -55,6 +55,31 @@ abstract class ArticleDatabase : RoomDatabase() {
                 db.execSQL("CREATE TABLE IF NOT EXISTS starred_source_table (id TEXT NOT NULL PRIMARY KEY, " +
                         "name TEXT NOT NULL)"
                 )
+            }
+
+        }
+
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                //Create a new table
+                db.execSQL("CREATE TABLE IF NOT EXISTS new_starred_articles_table (id INTEGER NOT NULL, " +
+                        "title TEXT NOT NULL, author TEXT NOT NULL, content TEXT NOT NULL, " +
+                        "description TEXT NOT NULL, publishedAt TEXT NOT NULL, source TEXT NOT NULL, " +
+                        "url TEXT NOT NULL PRIMARY KEY, urlToImage TEXT NOT NULL, isStarred INTEGER NOT NULL)"
+                )
+                db.execSQL("CREATE TABLE IF NOT EXISTS starred_source_table (id TEXT NOT NULL PRIMARY KEY, " +
+                        "name TEXT NOT NULL)"
+                )
+                //Copy all data from old table to new table
+                db.execSQL("INSERT INTO new_starred_articles_table (id, title, author, content, description," +
+                        "publishedAt, source, url, urlToImage, isStarred)" +
+                        "SELECT id, title, author, content, description, publishedAt, source, url, urlToImage, isStarred " +
+                        "FROM starred_articles_table"
+                )
+
+                //Drop old table and change new table name to old table
+                db.execSQL("DROP TABLE starred_articles_table")
+                db.execSQL("ALTER TABLE new_starred_articles_table RENAME TO starred_articles_table")
             }
 
         }

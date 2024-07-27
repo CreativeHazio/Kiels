@@ -9,7 +9,7 @@ class GetStarredArticles(
 ) {
 
     suspend operator fun invoke() : Flow<List<Article>> {
-        return articleRepository.getArticlesFromRoom()
+        return articleRepository.getStarredArticlesFromRoom()
     }
 
 }

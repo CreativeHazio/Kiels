@@ -13,6 +13,7 @@ import com.timeless.kiels.data.remote.ArticlesAPI
 import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.repository.ArticleRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
@@ -21,7 +22,7 @@ class ArticleRepositoryImpl @Inject constructor(
     private val articleDatabase: ArticleDatabase
 ) : ArticleRepository {
 
-    override suspend fun saveArticleToRoom(article: Article) {
+    override suspend fun saveStarredArticleToRoom(article: Article) {
         articleDatabase.withTransaction {
             articleDatabase.articleDAO.starArticle(
                 ArticlesMapper.fromArticleToStarredArticleEntity(article)
@@ -32,7 +33,7 @@ class ArticleRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteArticleFromRoom(article: Article) {
+    override suspend fun deleteStarredArticleFromRoom(article: Article) {
         articleDatabase.withTransaction {
             articleDatabase.articleDAO.deleteArticle(
                 ArticlesMapper.fromArticleToStarredArticleEntity(article)
@@ -44,9 +45,11 @@ class ArticleRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun getArticlesFromRoom(): Flow<List<Article>> {
+    override suspend fun getStarredArticlesFromRoom(): Flow<List<Article>> {
         return ArticlesMapper.fromStarredArticleEntityFlowListToArticleFlowList(
-            articleDatabase.articleDAO.getArticles()
+            articleDatabase.articleDAO.getArticles().map { starredArticleEntityList ->
+                starredArticleEntityList.sortedByDescending { it.dateAdded }
+            }
         )
     }
 
