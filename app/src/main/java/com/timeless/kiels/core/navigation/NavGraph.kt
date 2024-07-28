@@ -12,7 +12,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.timeless.kiels.presentation.explore.ExploreScreen
+import com.timeless.kiels.presentation.explore.ExploreScreenRoot
+import com.timeless.kiels.presentation.explore.ExploreViewModel
 import com.timeless.kiels.presentation.home.HomeScreenRoot
 import com.timeless.kiels.presentation.home.HomeViewModel
 import com.timeless.kiels.presentation.setup.SetupScreen
@@ -49,7 +50,8 @@ fun Navigation(navHostController: NavHostController) {
         }
 
         composable(Screen.ExploreScreen.route) {
-            ExploreScreen()
+            val viewModel : ExploreViewModel = hiltViewModel()
+            ExploreScreenRoot(viewModel)
         }
 
         composable(Screen.StarredScreen.route) {

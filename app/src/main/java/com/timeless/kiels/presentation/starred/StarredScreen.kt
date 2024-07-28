@@ -12,7 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.timeless.kiels.R
+import com.timeless.kiels.core.components.ScreenHeadline
 import com.timeless.kiels.core.components.StarredScreenArticleCardList
 import com.timeless.kiels.domain.model.Article
 
@@ -30,22 +33,15 @@ fun StarredScreen(
 ) {
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(bottom = 60.dp),
     ) {
 
-        Column(
-            modifier = Modifier.padding(top = 30.dp, start = 10.dp)
-        ) {
-            Text(text = "Starred", style = MaterialTheme.typography.headlineLarge)
-            Divider(
-                thickness = 6.dp,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier
-                    .width(40.dp)
-                    .padding(top = 5.dp)
-            )
-        }
+        ScreenHeadline(
+            title = stringResource(id = R.string.starred),
+            paddingTop = 60.dp
+        )
 
         Spacer(modifier = Modifier.size(20.dp))
         StarredArticlesSection(articles = articles)
