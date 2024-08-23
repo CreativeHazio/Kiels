@@ -1,7 +1,5 @@
 package com.timeless.kiels.presentation.explore
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,46 +9,37 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.timeless.kiels.R
+import com.timeless.kiels.core.components.HomeScreenArticleCardList
 import com.timeless.kiels.core.components.ScreenHeadline
-import com.timeless.kiels.ui.theme.DarkBlue
-import com.timeless.kiels.ui.theme.Gray
-import com.timeless.kiels.ui.theme.LightBlue
-import com.timeless.kiels.ui.theme.Transparent
 import com.timeless.kiels.ui.theme.TransparentDarkBlue
 import com.timeless.kiels.ui.theme.TransparentLightBlue
-import java.util.stream.Collector.Characteristics
-import kotlin.math.truncate
 
 @Composable
 fun ExploreScreenRoot(viewModel: ExploreViewModel) {
@@ -86,7 +75,30 @@ fun ExploreScreen(
 
         Spacer(modifier = Modifier.size(40.dp))
 
-        CategorySection(categoryList)
+        if (state.articles == null) {
+            CategorySection(categoryList, onEvent)
+        } else {
+            HomeScreenArticleCardList(
+                articles = state.articles.collectAsLazyPagingItems()
+            ) { isStarred, article ->
+                onEvent(ExploreEvent.StarArticle(isStarred, article))
+            }
+        }
+
+        if(state.isLoading) {
+            //TODO: Fix loading bar not in the middle
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(40.dp),
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
+        }
+
 
     }
 
@@ -120,7 +132,11 @@ fun SearchSection(
             selectionColors = TextSelectionColors(MaterialTheme.colorScheme.secondary,MaterialTheme.colorScheme.secondary),
         ),
         trailingIcon = {
-            IconButton(onClick = { onEvent(ExploreEvent.SearchArticle) }) {
+            IconButton(
+                onClick = {
+                    onEvent(ExploreEvent.ExploreArticle)
+                }
+            ) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
             }
         },
@@ -132,7 +148,7 @@ fun SearchSection(
         },
         singleLine = true,
         value = state.searchQuery,
-        onValueChange = { onEvent(ExploreEvent.UpdateSearchQuery(it)) }
+        onValueChange = { onEvent(ExploreEvent.UpdateSearchQuery(it)) },
     )
 
 }
@@ -140,15 +156,16 @@ fun SearchSection(
 @Preview(showBackground = true)
 @Composable
 fun SearchPreview() {
-    SearchSection(state = ExploreState()) {
-
+    ExploreScreen(categoryList = emptyList(), state = ExploreState()) {
+        
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategorySection(
-    categoryList : List<String>
+    categoryList: List<String>,
+    onEvent: (ExploreEvent) -> Unit
 ) {
     
     Column {
@@ -174,7 +191,10 @@ fun CategorySection(
                        containerColor = if (isSystemInDarkTheme()) TransparentDarkBlue else TransparentLightBlue
                     ),
                     shape = RoundedCornerShape(5.dp),
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        onEvent(ExploreEvent.UpdateSearchQuery(it))
+                        onEvent(ExploreEvent.ExploreArticle)
+                    }
                 ) {
                     Box(
                         modifier = Modifier.fillMaxSize(),

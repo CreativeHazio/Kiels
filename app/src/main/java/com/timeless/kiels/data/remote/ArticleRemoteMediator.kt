@@ -31,13 +31,15 @@ class ArticleRemoteMediator(
                     if (lastItem == null) {
                         1
                     } else {
-                        ((lastItem.id!!.div(state.config.pageSize)).plus(1))
+                        lastItem.id?.let {
+                            (it/state.config.pageSize) + 1
+                        }
                     }
                 }
             }
 
             val articlesResponse = articlesAPI.getLatestArticlesFromNewsApi(
-                searchQuery = searchQuery, pageNumber = loadKey, pageSize = state.config.pageSize
+                searchQuery = searchQuery, pageNumber = loadKey!!, pageSize = state.config.pageSize
             )
 
             val articles = ArticlesMapper.fromArticlesResponseToArticleBodyEntity(
@@ -47,6 +49,7 @@ class ArticleRemoteMediator(
             articleDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     articleDatabase.articleDAO.clearAllArticles()
+                    articleDatabase.articleDAO.deleteArticlesTablePrimaryIndexes()
                 }
 
                 articleDatabase.articleDAO.saveAllArticles(articles)

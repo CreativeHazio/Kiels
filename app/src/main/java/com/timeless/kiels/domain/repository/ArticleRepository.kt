@@ -13,4 +13,6 @@ interface ArticleRepository {
     suspend fun deleteStarredArticleFromRoom(article: Article)
 
     suspend fun getStarredArticlesFromRoom() : Flow<List<Article>>
+
+    fun exploreArticles(searchQuery: String): Flow<PagingData<Article>>
 }

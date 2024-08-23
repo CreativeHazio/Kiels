@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,10 +32,14 @@ fun HomeScreenRoot(
 ) {
 
     // TODO: Also get user detail from viewmodel
-    val articles : LazyPagingItems<Article> = viewModel.articles.collectAsLazyPagingItems()
+//    val articles : LazyPagingItems<Article> = viewModel.articles.collectAsLazyPagingItems()
+    val state = viewModel.state
+    val event = viewModel::onEvent
 
-    HomeScreen(articles = articles) { isStarred, article ->
-        viewModel.starArticle(isStarred, article)
+    state.value.articles?.let {
+        HomeScreen(articles = it.collectAsLazyPagingItems()) { isStarred, article ->
+            event(HomeEvent.StarArticle(isStarred, article))
+        }
     }
 
 }

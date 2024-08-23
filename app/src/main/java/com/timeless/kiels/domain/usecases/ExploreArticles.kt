@@ -1,0 +1,16 @@
+package com.timeless.kiels.domain.usecases
+
+import androidx.paging.PagingData
+import com.timeless.kiels.domain.model.Article
+import com.timeless.kiels.domain.repository.ArticleRepository
+import kotlinx.coroutines.flow.Flow
+
+class ExploreArticles(
+    private val articleRepository: ArticleRepository
+) {
+
+    operator fun invoke(searchQuery : String): Flow<PagingData<Article>> {
+        return articleRepository.exploreArticles(searchQuery)
+    }
+
+}

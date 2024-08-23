@@ -7,5 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 data class ExploreState(
     val searchQuery: String = "",
-    val articles : Flow<PagingData<Article>>? = null
+    val articles : Flow<PagingData<Article>>? = null,
+    val isLoading : Boolean = false
 )
