@@ -10,6 +10,7 @@ import com.timeless.kiels.data.local.article.ArticleDatabase
 import com.timeless.kiels.data.mapper.ArticlesMapper
 import com.timeless.kiels.data.remote.ArticleRemoteMediator
 import com.timeless.kiels.data.remote.ArticlesAPI
+import com.timeless.kiels.data.remote.ExploreArticlesPagingSource
 import com.timeless.kiels.domain.model.Article
 import com.timeless.kiels.domain.repository.ArticleRepository
 import kotlinx.coroutines.flow.Flow
@@ -63,5 +64,14 @@ class ArticleRepositoryImpl @Inject constructor(
                 pagingSourceFactory = { articleDatabase.articleDAO.pagingSource() }
             ).flow
         )
+    }
+
+    override fun exploreArticles(searchQuery: String) : Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = Constants.ARTICLES_PAGE_SIZE
+            ),
+            pagingSourceFactory = { ExploreArticlesPagingSource(articlesAPI, searchQuery) }
+        ).flow
     }
 }

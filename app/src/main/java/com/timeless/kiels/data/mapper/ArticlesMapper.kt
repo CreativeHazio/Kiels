@@ -11,15 +11,44 @@ import com.timeless.kiels.data.local.article.StarredSourceEntity
 import com.timeless.kiels.data.remote.ArticlesResponse
 import com.timeless.kiels.data.remote.SourceDto
 import com.timeless.kiels.domain.model.Article
+import com.timeless.kiels.domain.model.ArticlesBody
 import com.timeless.kiels.domain.model.Source
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import java.time.LocalDateTime
+import kotlin.random.Random
 
 class ArticlesMapper {
 
     companion object {
+
+        fun fromArticlesResponseToArticleBody(articlesResponse: ArticlesResponse) : ArticlesBody {
+            return ArticlesBody(
+                articles = articlesResponse.articles.map {
+                    Article(
+                        Random.nextInt(),
+                        it.title ?: "",
+                        it.author ?: "",
+                        it.content ?: "",
+                        it.description ?: "",
+                        it.publishedAt ?: "",
+                        fromSourceDtoToSource(it.source),
+                        it.url ?: "",
+                        it.urlToImage ?: ""
+                    )
+                } as MutableList<Article>,
+                status = articlesResponse.status,
+                totalResults = articlesResponse.totalResults
+            )
+        }
+
+        private fun fromSourceDtoToSource(sourceDto: SourceDto?) : Source {
+            return Source(
+                sourceDto?.id ?: "",
+                sourceDto?.name ?: ""
+            )
+        }
 
         fun fromArticlesResponseToArticleBodyEntity(articlesResponse: ArticlesResponse) : ArticleBodyEntity {
             return ArticleBodyEntity(

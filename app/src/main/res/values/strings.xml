@@ -3,4 +3,8 @@
     <string name="user_profile_image">User Profile Image</string>
     <string name="profile">Profile</string>
     <string name="kiels_articles_for_you">Kiels Articles\nFor You</string>
+    <string name="starred">Starred</string>
+    <string name="explore">Be an explorer</string>
+    <string name="categories">Categories</string>
+    <string name="search_bar_placeholder_text">e.g Web 3.0...</string>
 </resources>

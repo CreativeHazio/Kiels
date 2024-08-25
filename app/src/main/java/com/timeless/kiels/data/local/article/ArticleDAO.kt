@@ -33,4 +33,7 @@ interface ArticleDAO {
     @Query("DELETE FROM articles_table")
     fun clearAllArticles()
 
+    @Query("DELETE FROM sqlite_sequence WHERE name = 'articles_table'")
+    fun deleteArticlesTablePrimaryIndexes()
+
 }

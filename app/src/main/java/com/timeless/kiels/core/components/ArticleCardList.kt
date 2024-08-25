@@ -6,6 +6,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -144,9 +146,8 @@ fun ArticleCard(
         Card(
             modifier = Modifier
                 .animateContentSize(
-                    animationSpec = TweenSpec(
-                        durationMillis = 150,
-                        easing = LinearOutSlowInEasing
+                    animationSpec = SpringSpec(
+                        dampingRatio = Spring.DampingRatioMediumBouncy
                     )
                 )
                 .height(if (expandedState) 600.dp else 200.dp)

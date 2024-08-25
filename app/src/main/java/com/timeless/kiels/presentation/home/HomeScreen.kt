@@ -8,23 +8,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.timeless.kiels.R
 import com.timeless.kiels.core.components.HomeScreenArticleCardList
+import com.timeless.kiels.core.components.ScreenHeadline
 import com.timeless.kiels.domain.model.Article
 
 @Composable
@@ -33,10 +32,14 @@ fun HomeScreenRoot(
 ) {
 
     // TODO: Also get user detail from viewmodel
-    val articles : LazyPagingItems<Article> = viewModel.articles.collectAsLazyPagingItems()
+//    val articles : LazyPagingItems<Article> = viewModel.articles.collectAsLazyPagingItems()
+    val state = viewModel.state
+    val event = viewModel::onEvent
 
-    HomeScreen(articles = articles) { isStarred, article ->
-        viewModel.starArticle(isStarred, article)
+    state.value.articles?.let {
+        HomeScreen(articles = it.collectAsLazyPagingItems()) { isStarred, article ->
+            event(HomeEvent.StarArticle(isStarred, article))
+        }
     }
 
 }
@@ -80,25 +83,11 @@ fun ProfileSection(
             contentScale = ContentScale.Crop
         )
     }
-    
-    Spacer(modifier = Modifier.size(10.dp))
 
-    Column (
-        horizontalAlignment = Alignment.Start,
-        modifier = Modifier.padding(10.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.kiels_articles_for_you),
-            style = MaterialTheme.typography.headlineLarge
-        )
-        Divider(
-            thickness = 6.dp,
-            color = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier
-                .width(40.dp)
-                .padding(top = 5.dp)
-        )
-    }
+    ScreenHeadline(
+        title = stringResource(R.string.kiels_articles_for_you),
+        paddingTop = 10.dp
+    )
 
 }
 
